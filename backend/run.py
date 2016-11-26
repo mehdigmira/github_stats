@@ -7,22 +7,25 @@ from flask import request
 app = Flask(__name__)
 
 
-@app.route('/search')
+@app.route('/api/search')
 def search():
     search_item = request.values.get('searchItem')
-    url = "https://api.github.com/search/repositories?q=%s&sort=stars&order=desc" % search_item
+    url = "https://api.github.com/search/repositories?q=%s&sort=stars&order=desc&per_page=30" % search_item
     response = requests.get(url)
     if response.status_code == 200:
         json_data = response.json()
         repos = []
         for item in json_data['items']:
-            repos.append(item['owner']['login'] + '/' + item['name'])
+            repos.append({
+                'name': item['owner']['login'] + '/' + item['name'],
+                'description': item['description']
+            })
         return jsonify({'results': repos})
     else:
         abort(400)
 
 
-@app.route('/contributors/<owner>/<repo>')
+@app.route('/api/contributors/<owner>/<repo>')
 def get_contributors(owner, repo):
     url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contributors'
     response = requests.get(url)
@@ -36,7 +39,7 @@ def get_contributors(owner, repo):
         abort(400)
 
 
-@app.route('/last-commits/<owner>/<repo>')
+@app.route('/api/last-commits/<owner>/<repo>')
 def get_commits(owner, repo):
     url = 'https://api.github.com/repos/' + owner + '/' + repo + '/commits?per_page=100'
     response = requests.get(url)
