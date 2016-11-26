@@ -19,6 +19,9 @@
     }
 
     function init() {
+      if ($routeParams.searchItem === undefined) {
+        return;
+      }
       $http.get('/api/search', {
         params: {
           searchItem: vm.searchItem

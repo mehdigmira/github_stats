@@ -2,7 +2,7 @@
   <input type="text" ng-model="vm.searchItem" />
   <button ng-click="vm.search()">Submit</button>
 </div>
-<div ng-repeat="repo in vm.repos">
+<div ng-repeat="repo in vm.repos" class="result">
   <div class="result-title">
     <a href="stats?repo={{repo.name}}">{{ repo.name }}</a>
   </div>
