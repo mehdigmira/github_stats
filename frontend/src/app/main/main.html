@@ -1,7 +1,9 @@
 <div id="app-wrapper">
   <div class="form-group form-inline">
-    <input type="text" ng-model="vm.searchItem" class="form-control" />
-    <button ng-click="vm.search()" class="btn btn-primary">Submit</button>
+    <form ng-submit="vm.search()">
+      <input type="text" ng-model="vm.searchItem" class="form-control" placeholder="Search..."/>
+      <button ng-click="vm.search()" class="btn btn-primary">Submit</button>
+    </form>
   </div>
   <div ng-repeat="repo in vm.repos" class="result">
     <div class="result-title">
