@@ -27,16 +27,19 @@ def search():
 
 @app.route('/api/contributors/<owner>/<repo>')
 def get_contributors(owner, repo):
-    url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contributors'
-    response = requests.get(url)
-    if response.status_code == 200:
-        json_data = response.json()
-        contributors = []
-        for contributor in json_data:
-            contributors.append(contributor['login'])
-        return jsonify({"results": contributors})
-    else:
-        abort(400)
+    url = 'https://api.github.com/repos/' + owner + '/' + repo + '/contributors?per_page=100'
+    contributors = []
+    json_data = True
+    i = 1
+    while json_data:
+        response = requests.get(url + "&page=%s" % i)
+        if response.status_code == 200:
+            json_data = response.json()
+            contributors += [contributor['login'] for contributor in json_data]
+            i += 1
+        else:
+            abort(400)
+    return jsonify({"results": contributors})
 
 
 @app.route('/api/last-commits/<owner>/<repo>')
