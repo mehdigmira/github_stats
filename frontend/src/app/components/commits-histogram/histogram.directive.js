@@ -45,7 +45,7 @@
             .orient("left")
             .ticks(10);
 
-        svg
+        svg = svg
           .attr("width", width + margin.left + margin.right)
           .attr("height", height + margin.top + margin.bottom)
           .append("g")
@@ -71,8 +71,7 @@
               .attr("transform", "rotate(-90)")
               .attr("y", 6)
               .attr("dy", ".71em")
-              .style("text-anchor", "end")
-              .text("Value ($)");
+              .style("text-anchor", "end");
 
           svg.selectAll("bar")
               .data(_.toPairs(vm.data))
