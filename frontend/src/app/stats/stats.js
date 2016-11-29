@@ -9,7 +9,7 @@
   function StatsController($http, $routeParams, $location, repoContributors, lastCommits) {
     var vm = this;
 
-    console.log(repoContributors);
-    console.log(lastCommits);
+    vm.contributors = repoContributors;
+    vm.commitsByUser = _.countBy(lastCommits, "login");
   }
 })();

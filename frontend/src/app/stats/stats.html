@@ -1,0 +1,9 @@
+<div id="app-wrapper">
+  <div id="contributors">
+    <h1>Contributors</h1>
+    <div class="contributor" ng-repeat="contributor in vm.contributors">
+      {{ contributor }}
+    </div>
+  </div>
+  <commits-histogram data="vm.commitsByUser"></commits-histogram>
+</div>
