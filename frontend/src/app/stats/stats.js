@@ -11,5 +11,6 @@
 
     vm.contributors = repoContributors;
     vm.commitsByUser = _.countBy(lastCommits, "login");
+    vm.commitsByDate = _.countBy(lastCommits, function (o) { return moment(o['date']).format('YYYY-MM-DD'); })
   }
 })();
