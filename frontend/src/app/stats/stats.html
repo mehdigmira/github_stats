@@ -1,10 +1,21 @@
 <div id="app-wrapper">
-  <div id="contributors">
-    <h1>Contributors</h1>
-    <div class="contributor" ng-repeat="contributor in vm.contributors">
-      {{ contributor }}
+  <div id="header">
+    <button ng-click="vm.tab = 1" class="btn btn-primary">Contributors</button>
+    <button ng-click="vm.tab = 2" class="btn btn-primary">Commits by user</button>
+    <button ng-click="vm.tab = 3" class="btn btn-primary">Commits history</button>
+    <button ng-click="vm.goHome()" class="btn btn-primary">Home</button>
+  </div>
+  <div id="body">
+    <div id="contributors tab1" ng-if="vm.tab === 1">
+      <div class="contributor" ng-repeat="contributor in vm.contributors">
+        {{ contributor }}
+      </div>
+    </div>
+    <div id="tab2" ng-if="vm.tab === 2">
+      <commits-histogram data="vm.commitsByUser"></commits-histogram>
+    </div>
+    <div id="tab3" ng-if="vm.tab === 3">
+      <commits-history data="vm.commitsByDate"></commits-history>
     </div>
   </div>
-  <commits-histogram data="vm.commitsByUser"></commits-histogram>
-  <commits-history data="vm.commitsByDate"></commits-history>
 </div>
